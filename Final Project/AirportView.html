@@ -1,0 +1,96 @@
+<!DOCTYPE HTML>
+<!--
+	Miniport by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+
+<!-- CS 360 Final Project by Darren Dunn -->
+<html>
+	<head>
+		<title>Airline Popularity at SFO | SFO Map View</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+	</head>
+
+<!-- CSS style for adding buttons onto the SFO map image -->
+<style>
+.container {
+  position: relative;
+  text-align: center;
+  color: blue;
+}
+
+.top-left {
+  position: absolute;
+  top: 23%;
+  left: 16%;
+  transform: translate(-50%, -50%);
+}
+
+.top-right {
+  position: absolute;
+  top: 26%;
+  left: 88%;
+  transform: translate(-50%, -50%);
+}
+
+.centered {
+  position: absolute;
+  top: 60%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.middle {
+  position: absolute;
+  top: 10%;
+  left: 65%;
+  transform: translate(-50%, -50%);
+</style>
+	<body class="is-preload">
+
+		<!-- Nav -->
+			<nav id="nav">
+				<ul class="container">
+					<li><a href="Home.html">Home</a></li>
+					<li><a href="AirportView.html">SFO Map View</a></li>
+					<li><a href="Statistics.html">SFO Statistics</a></li>
+				</ul>
+			</nav>
+
+		<!-- Map View -->
+		<div class="container">
+			<img src="images/SFO map.jpg" alt="SFO map" style="width:100%;">
+			<!-- T3 -->
+			<div class="top-left">
+				<a href="AirportView.html" class="button large scrolly">Terminal 3</a>
+			</div>
+			
+			<!-- T2 -->
+			<div class="middle">
+				<a href="AirportView.html" class="button large scrolly">Terminal 2</a>
+			</div>
+			
+			<!-- T1 -->
+			<div class="top-right">
+				<a href="AirportView.html" class="button large scrolly">Terminal 1</a>
+			</div>
+			
+			<!-- Intl -->
+			<div class="centered">
+				<a href="InternationalTree.html" class="button large scrolly">International Terminal</a>
+			</div>
+		</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.scrolly.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>
