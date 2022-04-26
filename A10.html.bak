@@ -1,0 +1,77 @@
+<!DOCTYPE HTML>
+<!--
+	Miniport by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Darren Dunn CS360</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+	</head>
+	<body class="is-preload">
+
+		<!-- Nav -->
+			<nav id="nav">
+				<ul class="container">
+					<li><a href="#top">Intro</a></li>
+					<li><a href="#resume">Resume and Interests</a></li>
+					<li><a href="#portfolio">Portfolio</a></li>
+					<li><a href="Final Project/FinalProject.html">Final Project</a></li>
+				</ul>
+			</nav>
+		<!-- Resume -->
+			<article id="resume" class="wrapper style2">
+				<div class="container">
+					<h1>Black Hat Visualization</h1>
+					<p>link: https://www.vox.com/2016/7/25/12251286/calories-alcoholic-drinks-chart</p>
+					<img src="images/VoxBeer.png" alt="Vox Beer Graph" />
+					<p>This visualization from Vox about Beer calories is misleading mainly
+					because of the lack of proper tick marks for the x axis. This means the reader
+					isn't able to contextualize the bars.<br><br>
+					For instance, the reader isn't able to accurately tell where the half-way
+					point is for the x axis values.<br><br>
+					This also leads to the reader to inaccurately read each bar because
+					the lack of tick marks in the x axis means the reader interprets
+					the calorie count purely on the numbers inside the bars.<br><br>
+					The lack of sufficient tick marks makes the size aspect of the bars
+					kind of useless since the reader can't associate the position of the ends of the
+					bars with a tick mark.<br><br>
+					In addition, while this graph visualizes only calories, the lack of other factors that
+					can affect the amount of calories a beer has are not present.<br>
+					Vox purposefully left out important pieces of the dataset which are the alcohol percentage
+					and amount of carbs. These are aspects of beer that can affect the amount of calories.</p>
+				</div>
+				<br>
+				<br>
+				<br>
+				<br>
+				<div class="container">
+					<h1>White Hat Visualization</h1>
+					<iframe title="Beer alcohol content, calories, and carbs" aria-label="Grouped Bars" id="datawrapper-chart-GEtH9" src="https://datawrapper.dwcdn.net/GEtH9/4/" scrolling="no" frameborder="0" style="width: 0; min-width: 100% !important; border: none;" height="7215"></iframe><script type="text/javascript">!function(){"use strict";window.addEventListener("message",(function(e){if(void 0!==e.data["datawrapper-height"]){var t=document.querySelectorAll("iframe");for(var a in e.data["datawrapper-height"])for(var r=0;r<t.length;r++){if(t[r].contentWindow===e.source)t[r].style.height=e.data["datawrapper-height"][a]+"px"}}}))}();
+</script>
+					<p>As is evident, there is a lot more data in the most recent version of the dataset compared to the one
+					that Vox used.<br><br>
+					In this redesigned version of Vox's graph, I have included the missing data components which were the alcohol percentage and
+					amount of carbs.<br><br>
+					I have also used a categorical scale to help distinguish between the 3 types of categorical data.<br><br>
+					In terms of sorting, I have sorted the data by amount of calories since that was the original goal.
+					The alcohol percentage and amount of carbs are not sorted and pertain directly to their related beer.<br><br>
+					With my redesigned version, it is clear to see how alcohol percentage normally dictates the amount of calories.<br><br>
+					However, there are certain beers that have a lower alcohol percentage but have a higher amount of calories.<br><br>
+					This important finding cannot be revealed in Vox's graph.</p>
+			</article>
+
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.scrolly.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>
