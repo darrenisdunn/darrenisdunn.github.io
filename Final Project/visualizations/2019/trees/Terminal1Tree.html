@@ -1,0 +1,101 @@
+<!DOCTYPE HTML>
+<!--
+	Miniport by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+
+<!-- CS 360 Final Project by Darren Dunn -->
+<html>
+	<head>
+		<title>Airline Popularity at SFO | International Terminal Tree Map</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<script src="https://d3js.org/d3.v4.js"></script>
+	</head>
+
+	<body class="is-preload">
+		<!-- Nav -->
+			<nav id="nav">
+				<ul class="container">
+					<li><a href="Home.html">Home</a></li>
+					<li><a href="AirportView.html">SFO Map View</a></li>
+					<li><a href="Statistics.html">SFO Statistics</a></li>
+					<li><a href="Compare.html">Compare</a></li>
+				</ul>
+			</nav>
+			<article id="airportview" class="wrapper style1">
+				<header><h1>Terminal 1 (2019)</h1></header>
+				<div class="container">
+				<div id="my_dataviz"></div>
+					<script>
+				// CS360 Final Project Darren Dunn
+				// code referenced and edited from https://d3-graph-gallery.com/graph/treemap_basic.html
+				// see readme for dataset source and details
+
+				// set the dimensions and margins of the graph
+				var margin = {top: 10, right: 10, bottom: 10, left: 10},
+				  width = 1000 - margin.left - margin.right,
+				  height = 1000 - margin.top - margin.bottom;
+
+				// append the svg object to the body of the page
+				var svg = d3.select("#my_dataviz")
+				.append("svg")
+				  .attr("width", width + margin.left + margin.right)
+				  .attr("height", height + margin.top + margin.bottom)
+				.append("g")
+				  .attr("transform",
+						"translate(" + margin.left + "," + margin.top + ")");
+				  
+				// Read data
+				d3.csv("https://gist.githubusercontent.com/darrenisdunn/72d425384aa3443198d44c0ae073af9c/raw/7b9998e66b29efff5b9dca2472d8e375800e710b/sfo_T1_Tree_2019.csv", function(data) {
+				var color = d3.scaleOrdinal()
+				.domain([d3.min(data), d3.max(data)])
+				.range([ "#8f0000", "#8f6200", "#518f00", "#008f56", "#00818f", "#00378f", "#000c8f", "#4c008f", "#77008f", "#8f006d", "#15008f"])
+				  // stratify the data: reformatting for d3.js
+				  var root = d3.stratify()
+					.id(function(d) { return d.airline; })   // Name of the entity (column name is name in csv)
+					.parentId(function(d) { return d.parent; })   // Name of the parent (column name is parent in csv)
+					(data);
+				  root.sum(function(d) { return +d.APC })   // Compute the numeric value for each entity
+
+				  // Then d3.treemap computes the position of each element of the hierarchy
+				  // The coordinates are added to the root object above
+				  d3.treemap()
+					.size([width, height])
+					.padding(5)
+					(root)
+
+				console.log(root.leaves())
+				
+				  // use this information to add rectangles:
+				  svg
+					.selectAll("rect")
+					.data(root.leaves())
+					.enter()
+					.append("rect")
+					  .attr('x', function (d) { return d.x0; })
+					  .attr('y', function (d) { return d.y0; })
+					  .attr('width', function (d) { return d.x1 - d.x0 / 2; })
+					  .attr('height', function (d) { return d.y1 - d.y0 / 2; })
+					  .style("stroke", "black")
+					  .style("fill", function(d) { return color(d.data.APC)});
+
+				  // and to add the text labels
+				  svg
+					.selectAll("text")
+					.data(root.leaves())
+					.enter()
+					.append("text")
+					  .attr("x", function(d){ return d.x0+10})    // +10 to adjust position (more right)
+					  .attr("y", function(d){ return d.y0+20})    // +20 to adjust position (lower)
+					  .text(function(d){ return d.data.airline})
+					  .attr("font-size", "25px")
+					  .attr("fill", "white")
+				})
+				</script>
+				</div>
+			</article>
+	</body>
+</html>
