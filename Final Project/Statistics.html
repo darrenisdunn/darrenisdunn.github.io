@@ -23,12 +23,13 @@
 					<li><a href="Home.html">Home</a></li>
 					<li><a href="AirportView.html">SFO Map View</a></li>
 					<li><a href="Statistics.html">SFO Statistics</a></li>
+					<li><a href="Compare.html">Compare</a></li>
 				</ul>
 			</nav>
 			<article id="airportview" class="wrapper style1">
 				<div class="container">
 					<header>
-						<h1>Average Passenger Count by Airline in 2019</h1>
+						<h1>Average Passenger Count by Airline at SFO (2019)</h1>
 					</header>
 					<div id="HBarChart"></div>
 					<script>
@@ -37,9 +38,9 @@
 					// see readme for dataset source and details
 
 					// set the dimensions and margins of the graph
-					var margin = {top: 20, right: 30, bottom: 70, left: 90},
+					var margin = {top: 20, right: 30, bottom: 70, left: 100},
 						width = 1300 - margin.left - margin.right,
-						height = 1000 - margin.top - margin.bottom;
+						height = 900 - margin.top - margin.bottom;
 
 					// append the svg object to the body of the page
 					var svg = d3.select("#HBarChart")
@@ -85,27 +86,66 @@
 					.domain([2000, 20000])
 					.range(d3.schemePurples[3])
 					
+					// create a tooltip
+					  var tooltip = d3.select("#HBarChart")
+						.append("div")
+						.style("opacity", 0)
+						.attr("class", "tooltip")
+						.style("background-color", "white")
+						.style("border", "solid")
+						.style("border-width", "2px")
+						.style("border-radius", "5px")
+						.style("padding", "5px")
+
+					  // Three function that change the tooltip when user hover / move / leave a cell
+					  var mouseover = function(d) {
+						tooltip
+						  .style("opacity", 1)
+						d3.select(this)
+						  .style("stroke", "black")
+						  .style("stroke-width", 3)
+						  .style("opacity", 1)
+					  }
+					  var mousemove = function(d) {
+						tooltip
+						  .html("Average Passenger Count: " + d.AVP)
+						  .style("left", (d3.mouse(this)[0]+70) + "px")
+						  .style("top", (d3.mouse(this)[1]) + "px")
+					  }
+					  var mouseleave = function(d) {
+						tooltip
+						  .style("opacity", 0)
+						d3.select(this)
+						  .style("stroke", "none")
+						  .style("opacity", 0.8)
+					  }
+					
 					  //Bars
 					  svg.selectAll("myRect")
 						.data(data)
 						.enter()
 						.append("rect")
-						.attr("x", x(0) )
 						.attr("y", function(d) { return y(d.Airline); })
-						.attr("width", function(d) { return x(d.AVP); })
 						.attr("height", y.bandwidth() )
 						.attr("fill", function(d) { return myColor(d.AVP);})
-
+						// no bar at the beginning thus:
+						.attr("width", function(d) { return x(0); }) // always equal to 0
+						.attr("x", function(d) { return x(0); })
+						.on("mouseover", mouseover)
+						.on("mousemove", mousemove)
+						.on("mouseleave", mouseleave)
+					
+					// Animation
+					svg.selectAll("rect")
+					.transition()
+					.duration(800)
+					.attr("x", x(0) )
+					.attr("width", function(d) { return x(d.AVP); })
+					.delay(function(d,i){console.log(i) ; return(i*100)})
+						
+						
 					})
 					</script>
-				</div>
-				<br>
-				<br>
-				<br>
-				<br>
-				<div class "container">
-					<header>
-						<h1>United vs Southwest Airlines</h1>
 				</div>
 			</article>
 	</body>
