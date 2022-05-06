@@ -49,10 +49,10 @@
 						"translate(" + margin.left + "," + margin.top + ")");
 				  
 				// Read data
-				d3.csv("https://gist.githubusercontent.com/darrenisdunn/7e910754f4c550a7af148843c0f64af5/raw/2757084a899bde936b98608b6efde0fc06d2bdee/sfo_T3_Tree_2019.csv", function(data) {
+				d3.csv("https://gist.githubusercontent.com/darrenisdunn/7e910754f4c550a7af148843c0f64af5/raw/e0dd85636443f527783312492904c8d5187664e0/sfo_T3_Tree_2019.csv", function(data) {
 				var color = d3.scaleOrdinal()
 				.domain([d3.min(data), d3.max(data)])
-				.range([ "#8f0000", "#8f6200", "#518f00", "#008f56", "#00818f", "#00378f", "#000c8f", "#4c008f", "#77008f", "#8f006d", "#15008f"])
+				.range(["#00587C"])
 				  // stratify the data: reformatting for d3.js
 				  var root = d3.stratify()
 					.id(function(d) { return d.airline; })   // Name of the entity (column name is name in csv)
