@@ -15,6 +15,7 @@
 		<link rel="stylesheet" href="assets/css/main.css" />
 		<script src="https://d3js.org/d3.v4.js"></script>
 		<script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/d3-legend/2.25.6/d3-legend.min.js"></script>
 	</head>
 
 	<body class="is-preload">
@@ -25,7 +26,7 @@
 					<li><a href="AirportView.html">SFO Map View</a></li>
 					<li><a href="Statistics.html">Statistics</a></li>
 					<li><a href="Compare.html">Compare</a></li>
-					<li><a href="CovidImpact.html">COVID Impact</a></li>
+					<li><a href="CovidImpact.html"><b>COVID Impact</b></a></li>
 				</ul>
 			</nav>
 			<article id="airportview" class="wrapper style1">
@@ -37,8 +38,10 @@
 					<script>
 					// Heat Map/Strip Plot Hybrid by Darren Dunn
 					// Code referenced (I have thouroughly understood the code and have heavily modified it):
+					// https://d3-graph-gallery.com/graph/heatmap_style.html
+					
 					// set the dimensions and margins of the graph
-					var margin = {top: 80, right: 25, bottom: 30, left: 40},
+					var margin = {top: 80, right: 200, bottom: 30, left: 40},
 					  width = 850 - margin.left - margin.right,
 					  height = 650 - margin.top - margin.bottom;
 
@@ -52,7 +55,7 @@
 							"translate(" + margin.left + "," + margin.top + ")");
 
 					//Read the data
-					d3.tsv("https://gist.githubusercontent.com/darrenisdunn/c321bfb3a0ef26db73ce41a525220004/raw/8e13b7e4e79b16cb466f62e5f825f944592cd5d1/heatMapTest.tsv", function(data) {
+					d3.tsv("https://gist.githubusercontent.com/darrenisdunn/58f6bf8b435ebf8b457940fec6149781/raw/46d136540bcb6110f4ef3173371304417ddad431/Final_SFO_HeatMap.tsv", function(data) {
 
 					  // Labels of row and columns -> unique identifier of the column called 'month' and 'year'
 					  var mymonths = d3.map(data, function(d){return d.month;}).keys()
@@ -105,7 +108,7 @@
 					  }
 					  var mousemove = function(d) {
 						tooltip
-						  .html("Average Passenger Count: " + d.APC)
+						  .html("Average Passenger Count: " + d.AVGPC)
 						  .style("left", (d3.mouse(this)[0]+70) + "px")
 						  .style("top", (d3.mouse(this)[1]) + "px")
 					  }
@@ -128,7 +131,7 @@
 						  .attr("ry", 4)
 						  .attr("width", x.bandwidth() )
 						  .attr("height", y.bandwidth() )
-						  .style("fill", function(d) { return myColor(d.APC)} )
+						  .style("fill", function(d) { return myColor(d.AVGPC)} )
 						  .style("stroke-width", 4)
 						  .style("stroke", "none")
 						  .style("opacity", 0.8)
@@ -136,15 +139,7 @@
 						.on("mousemove", mousemove)
 						.on("mouseleave", mouseleave)
 					})
-
-					// Add title to graph
-					svg.append("text")
-							.attr("x", 0)
-							.attr("y", -50)
-							.attr("text-anchor", "left")
-							.style("font-size", "22px")
-							.text("SFO Average Passenger Number COVID impact");
-
+					
 					// Add subtitle to graph
 					svg.append("text")
 							.attr("x", 0)
@@ -153,9 +148,26 @@
 							.style("font-size", "14px")
 							.style("fill", "grey")
 							.style("max-width", 400)
-							.text("Notice drastic reduction in average passenger numbers when COVID starts to impact SFO!");
+							.text("Notice the drastic reduction in average passenger numbers when COVID starts to impact SFO!");
+					
+					
+					var log = d3.scaleLog()
+						.domain([ 1000, 40000 ])
+						.range(["#0206d6", "#c46f00"]);
 
+					
+					svg.append("g")
+						.attr("class", "legendLog")
+						.attr("transform", "translate(650,20)");
 
+					var logLegend = d3.legendColor()
+						.labelFormat(d3.format(".0f"))
+						.title("Passenger Count")
+						.cells([5000, 10000, 20000, 35000, 40000])
+						.scale(log);
+
+					svg.select(".legendLog")
+						.call(logLegend);
 					</script>
 			</article>
 	</body>

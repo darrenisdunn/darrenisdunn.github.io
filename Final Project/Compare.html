@@ -24,7 +24,7 @@
 					<li><a href="Home.html">Home</a></li>
 					<li><a href="AirportView.html">SFO Map View</a></li>
 					<li><a href="Statistics.html">Statistics</a></li>
-					<li><a href="Compare.html">Compare</a></li>
+					<li><a href="Compare.html"><b>Compare</b></a></li>
 					<li><a href="CovidImpact.html">COVID Impact</a></li>
 				</ul>
 			</nav>
@@ -53,7 +53,7 @@
 				
 
 				//Read the data
-				d3.tsv("https://gist.githubusercontent.com/darrenisdunn/40776ffd25ae5a91f8a908dc90c7fd55/raw/1c281cf030348c8a15240b3ecfd955b5c2363bd9/sfo_CompareLine_2019.tsv", function(data) {
+				d3.tsv("https://gist.githubusercontent.com/darrenisdunn/74d24434dbffad5541ecd3895e4ba8bc/raw/beff215d34e09c74813f57c9a0632460ffcb44bb/Final_SFO_LineChart.tsv", function(data) {
 				  
 				  
 				  // group the data: I want to draw one line per group
@@ -79,7 +79,7 @@
 				  
 				  // Add Y axis
 				  var y = d3.scaleLinear()
-					.domain([0, d3.max(data, function(d) { return +d.APC; })])
+					.domain([0, d3.max(data, function(d) { return +d.AVGPC; })])
 					.range([ height, 0 ]);
 				  svg.append("g")
 					.call(d3.axisLeft(y))
@@ -112,7 +112,7 @@
 						.attr("d", function(d){
 						  return d3.line()
 							.x(function(d) { return x(d.Month); })
-							.y(function(d) { return y(+d.APC); })
+							.y(function(d) { return y(+d.AVGPC); })
 							(d.values)
 						})
 				  // data does not update, so can add static line labels

@@ -22,8 +22,9 @@
 				<ul class="container">
 					<li><a href="Home.html">Home</a></li>
 					<li><a href="AirportView.html">SFO Map View</a></li>
-					<li><a href="Statistics.html">SFO Statistics</a></li>
+					<li><a href="Statistics.html"><b>Statistics</b></a></li>
 					<li><a href="Compare.html">Compare</a></li>
+					<li><a href="CovidImpact.html">COVID Impact</a></li>
 				</ul>
 			</nav>
 			<article id="airportview" class="wrapper style1">
@@ -38,7 +39,7 @@
 					// see readme for dataset source and details
 
 					// set the dimensions and margins of the graph
-					var margin = {top: 20, right: 30, bottom: 70, left: 100},
+					var margin = {top: 20, right: 250, bottom: 70, left: 250},
 						width = 1300 - margin.left - margin.right,
 						height = 900 - margin.top - margin.bottom;
 
@@ -52,7 +53,7 @@
 							  "translate(" + margin.left + "," + margin.top + ")");
 
 					// Parse the Data
-					d3.tsv("https://gist.githubusercontent.com/darrenisdunn/476eb6ff4529f597a1300fb77318830b/raw/2030a7ae34dc88e1f99d1d2430a531f86b26a3db/sfo_2019_average_fullname", function(data) {
+					d3.tsv("https://gist.githubusercontent.com/darrenisdunn/d3aa4675236e518f1d2c2714d361e6aa/raw/69b622535b6744dcaaabc1689d5812dbf0fcbf8d/Final_SFO_BarChart.tsv", function(data) {
 
 					  // Add X axis
 					  var x = d3.scaleLinear()
@@ -108,7 +109,7 @@
 					  }
 					  var mousemove = function(d) {
 						tooltip
-						  .html("Average Passenger Count: " + d.AVP)
+						  .html("Average Passenger Count: " + d.AVGPC)
 						  .style("left", (d3.mouse(this)[0]+70) + "px")
 						  .style("top", (d3.mouse(this)[1]) + "px")
 					  }
@@ -127,7 +128,7 @@
 						.append("rect")
 						.attr("y", function(d) { return y(d.Airline); })
 						.attr("height", y.bandwidth() )
-						.attr("fill", function(d) { return myColor(d.AVP);})
+						.attr("fill", function(d) { return myColor(d.AVGPC);})
 						// no bar at the beginning thus:
 						.attr("width", function(d) { return x(0); }) // always equal to 0
 						.attr("x", function(d) { return x(0); })
@@ -140,11 +141,26 @@
 					.transition()
 					.duration(800)
 					.attr("x", x(0) )
-					.attr("width", function(d) { return x(d.AVP); })
+					.attr("width", function(d) { return x(d.AVGPC); })
 					.delay(function(d,i){console.log(i) ; return(i*100)})
-						
-						
 					})
+					
+					// legend (using circles to focus on the color, not the shape)
+					svg.append("circle").attr("cx",850).attr("cy",150).attr("r", 6).style("fill", "#b2a6ff")
+					svg.append("circle").attr("cx",850).attr("cy",170).attr("r", 6).style("fill", "#685ad6")
+					svg.append("circle").attr("cx",850).attr("cy",190).attr("r", 6).style("fill", "#5031d6")
+					svg.append("circle").attr("cx",850).attr("cy",210).attr("r", 6).style("fill", "#3d26a3")
+					svg.append("circle").attr("cx",850).attr("cy",230).attr("r", 6).style("fill", "#070036")
+					
+					
+					svg.append("text").attr("x",865).attr("y",150).text("10,000").style("font-size", "15px").attr("alignment-baseline", "middle")
+					svg.append("text").attr("x",865).attr("y",170).text("30,000").style("font-size", "15px").attr("alignment-baseline", "middle")
+					svg.append("text").attr("x",865).attr("y",190).text("60,000").style("font-size", "15px").attr("alignment-baseline", "middle")
+					svg.append("text").attr("x",865).attr("y",210).text("100,000").style("font-size", "15px").attr("alignment-baseline", "middle")
+					svg.append("text").attr("x",865).attr("y",230).text("150,000").style("font-size", "15px").attr("alignment-baseline", "middle")
+					
+					svg.append("text").attr("x",830).attr("y",130).text("Passenger Count").style("font-size", "15px").attr("alignment-baseline", "middle")
+					svg.append("text").attr("x",320).attr("y",870).text("Average Passenger Count").style("font-size", "15px").attr("alignment-baseline", "middle")
 					</script>
 				</div>
 			</article>
