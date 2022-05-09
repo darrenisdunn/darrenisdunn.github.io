@@ -21,8 +21,9 @@
 				<ul class="container">
 					<li><a href="../../../Home.html">Home</a></li>
 					<li><a href="../../../AirportView.html">SFO Map View</a></li>
-					<li><a href="../../../Statistics.html">SFO Statistics</a></li>
+					<li><a href="../../../Statistics.html">Statistics</a></li>
 					<li><a href="../../../Compare.html">Compare</a></li>
+					<li><a href="../../../CovidImpact.html">COVID Impact</a></li>
 				</ul>
 			</nav>
 			<article id="airportview" class="wrapper style1">
@@ -49,16 +50,16 @@
 						"translate(" + margin.left + "," + margin.top + ")");
 				  
 				// Read data
-				d3.csv("https://gist.githubusercontent.com/darrenisdunn/e4e97e0fac00cd2f051293d8aa7261c4/raw/1d10d946445fa842f0e0698798a78c0c008b1425/sfo_T2_Tree_2019.csv", function(data) {
+				d3.csv("https://gist.githubusercontent.com/darrenisdunn/6fdef14f678009edd2c93d4480bdec44/raw/7280cc7c1957856d90808609587ec9e24a3bd99e/Final_SFO_Terminal2.csv", function(data) {
 				var color = d3.scaleOrdinal()
 				.domain([d3.min(data), d3.max(data)])
 				.range([ "#00587C"])
 				  // stratify the data: reformatting for d3.js
 				  var root = d3.stratify()
-					.id(function(d) { return d.airline; })   // Name of the entity (column name is name in csv)
+					.id(function(d) { return d.Airline; })   // Name of the entity (column name is name in csv)
 					.parentId(function(d) { return d.parent; })   // Name of the parent (column name is parent in csv)
 					(data);
-				  root.sum(function(d) { return +d.APC })   // Compute the numeric value for each entity
+				  root.sum(function(d) { return +d.AVGPC })   // Compute the numeric value for each entity
 
 				  // Then d3.treemap computes the position of each element of the hierarchy
 				  // The coordinates are added to the root object above
@@ -80,7 +81,7 @@
 					  .attr('width', function (d) { return d.x1 - d.x0 / 2; })
 					  .attr('height', function (d) { return d.y1 - d.y0 / 2; })
 					  .style("stroke", "black")
-					  .style("fill", function(d) { return color(d.data.APC)});
+					  .style("fill", function(d) { return color(d.data.AVGPC)});
 
 				  // and to add the text labels
 				  svg
@@ -90,7 +91,7 @@
 					.append("text")
 					  .attr("x", function(d){ return d.x0+10})    // +10 to adjust position (more right)
 					  .attr("y", function(d){ return d.y0+20})    // +20 to adjust position (lower)
-					  .text(function(d){ return d.data.airline})
+					  .text(function(d){ return d.data.Airline})
 					  .attr("font-size", "25px")
 					  .attr("fill", "white")
 				})
