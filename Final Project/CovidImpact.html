@@ -41,7 +41,7 @@
 					// https://d3-graph-gallery.com/graph/heatmap_style.html
 					
 					// set the dimensions and margins of the graph
-					var margin = {top: 80, right: 200, bottom: 90, left: 40},
+					var margin = {top: 80, right: 210, bottom: 90, left: 40},
 					  width = 850 - margin.left - margin.right,
 					  height = 650 - margin.top - margin.bottom;
 
@@ -159,11 +159,11 @@
 					
 					svg.append("g")
 						.attr("class", "legendLog")
-						.attr("transform", "translate(650,20)");
+						.attr("transform", "translate(640,20)");
 
 					var logLegend = d3.legendColor()
 						.labelFormat(d3.format(".0f"))
-						.title("Passenger Count")
+						.title("Avg. Passenger Count")
 						.cells([5000, 10000, 20000, 35000, 40000])
 						.scale(log);
 
