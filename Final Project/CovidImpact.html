@@ -41,7 +41,7 @@
 					// https://d3-graph-gallery.com/graph/heatmap_style.html
 					
 					// set the dimensions and margins of the graph
-					var margin = {top: 80, right: 200, bottom: 30, left: 40},
+					var margin = {top: 80, right: 200, bottom: 90, left: 40},
 					  width = 850 - margin.left - margin.right,
 					  height = 650 - margin.top - margin.bottom;
 
@@ -139,6 +139,7 @@
 						.on("mousemove", mousemove)
 						.on("mouseleave", mouseleave)
 					})
+					svg.append("text").attr("x",290).attr("y",530).text("Month").style("font-size", "15px").attr("alignment-baseline", "middle")
 					
 					// Add subtitle to graph
 					svg.append("text")
@@ -169,6 +170,7 @@
 					svg.select(".legendLog")
 						.call(logLegend);
 					</script>
+					
 			</article>
 	</body>
 </html>
