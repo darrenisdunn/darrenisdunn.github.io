@@ -1,4 +1,4 @@
 # darrenisdunn.github.io
-CS 360 Website | Darren Dunn
+CS360 Personal Website | Darren Dunn
 
-Contains intro, assignments, and final project.
+Contains my introduction, assignments, and final project.
